@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+| Future Elite Trainees
+{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <h1>Elite Trainees</h1>
+    {% if elites %}
+    <div>
+        <hr>
+        <h5>Click On Trainee Name To View His Profile</h5>
+        <br>
+    </div>
+    <div class="row">
+
+        {% for elite in elites %}
+        <div class="col-md-3">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><a class="font-weight-bold"
+                        href="{% url 'trainee' elite.id %}">{{elite.name}}</a></li>
+                <hr>
+            </ul>
+        </div>
+
+        {% endfor %}
+        {% else %}
+        <div class="jumbotron py-2 my-5 mx-auto">
+            <h1>No Injured Athletes</h1>
+        </div>
+        {% endif %}
+
+
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+</div>
+{% endblock %}

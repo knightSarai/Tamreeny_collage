@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+
+{% block title %}
+| search result
+{% endblock %}
+
+{% block content %}
+<section id="showcase-inner" class="showcase-search text-white py-5">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-12">
+                <form action="{% url 'search' %}">
+                    <!-- Form Row 1 -->
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label class="sr-only">Keywords</label>
+                            <input type="text" name="keywords" class="form-control"
+                                placeholder="Keyword (name, level , etc)">
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label class="sr-only">trainer</label>
+                            <input type="text" name="trainer" class="form-control" placeholder="search by trainer">
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label class="sr-only">level</label>
+                            <select name="level" class="form-control">
+                                <option selected="true" disabled="disabled">levels (ALL)</option>
+                                <option value="beginner">beginner</option>
+                                <option value="intermediate">intermediate</option>
+                                <option value="advanced">advanced</option>
+                                <option value="elite">elite</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Form Row 2 -->
+                    <div class="form-row">
+                        <div class="col-md-4 mb-2">
+                            <label class="sr-only">Health issues</label>
+                            <select name="health" class="form-control">
+                                <option selected="true" disabled="disabled">Health issues</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-2">
+                            <label class="sr-only">in shape ?</label>
+                            <select name="shape" class="form-control">
+                                <option selected="true" disabled="disabled">in shape ?</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-2">
+                            <select name="elite" class="form-control" id="type">
+                                <option selected="true" disabled="disabled">futuer elite ?</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary btn-block mt-4" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Breadcrumb -->
+<section id="bc" class="mt-3">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="index.html">
+                        <i class="fas fa-home"></i> Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="trainees.html">Browse trainees</a>
+                </li>
+                <li class="breadcrumb-item active"> Search Results</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+
+<!-- trainees -->
+<<section id="listings" class="py-4">
+    <div class="container">
+        <div class="row">
+            {% if trainees_list %}
+            {% for trainee in trainees_list %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card trainee-preview">
+                    <img class="card-img-top" src="{{trainee.photo_main.url}}" alt="">
+                    <div class="card-body">
+                        <div class="listing-heading text-center">
+                            <h4 class="text-primary">{{trainee.name.url}}</h4>
+                            <p>
+                                <i class="fas fa-map-marker text-secondary"></i> {{trainee.address}} </p>
+                        </div>
+                        <hr>
+                        <div class="row py-2 text-secondary">
+                            <div class="col-6">
+                                <i class="fas fa-level-up-alt"></i> level :<br> {{trainee.level}}</div>
+                            <div class="col-6">
+                                <i class="fas fa-bolt"></i> shape : <br>{% if trainee.shape %} in Shape {% else %} out
+                                of Shape
+                                {% endif %}</div>
+                        </div>
+                        <div class="row py-2 text-secondary">
+                            <div class="col-6">
+                                <i class="fas fa-heart"></i> issues : {% if trainee.health_issue %} Yes {% else %} No
+                                {% endif %}</div>
+                            <div class="col-6">
+                                <i class="fas fa-male"></i> age: {{trainee.age}}</div>
+                        </div>
+                        <hr>
+                        <div class="row py-2 text-secondary">
+                            <div class="col-6">
+                                <i class="fas fa-user"></i> {{trainee.trainer}}</div>
+                        </div>
+                        <div class="row text-secondary pb-2">
+                            <div class="col-6">
+                                <i class="fas fa-clock"></i> {{trainee.roll_date}}</div>
+                        </div>
+                        <hr>
+                        <a href="{% url 'trainee' trainee.id %}" class="btn btn-primary btn-block">profile</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <p>No Trainees</p>
+            {% endif %}
+        </div>
+    </div>
+    </section>
+    {% endblock %}

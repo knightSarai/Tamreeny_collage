@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+| Trainees In Shape
+{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <h1>shapes Trainees</h1>
+    {% if shapes %}
+    <div>
+        <hr>
+        <h5>Click On Trainee Name To View His Profile</h5>
+        <br>
+    </div>
+    <div class="row">
+        {% for shape in shapes %}
+        <div class="col-md-3">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><a class="font-weight-bold"
+                        href="{% url 'trainee' shape.id %}">{{shape.name}}</a></li>
+                <hr>
+            </ul>
+        </div>
+
+        {% endfor %}
+        {% else %}
+        <div class="jumbotron py-2 my-5 mx-auto">
+            <h1>No In Shape Athletes</h1>
+        </div>
+        {% endif %}
+
+
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+</div>
+{% endblock %}

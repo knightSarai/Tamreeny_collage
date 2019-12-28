@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+| Trainees Issue Detail
+{% endblock %}
+
+{% block content %}
+{% include 'partials/_alerts.html' %}
+<div class="container my-4">
+    <div class="row">
+        <div class="col-md-8">
+            <h1>{{object.issue_date}}</h1>
+            <hr>
+            <h1>{{object.issue}}</h1>
+
+        </div>
+        <div class="col-md-4">
+
+            <br>
+            <br>
+            <br>
+            <br>
+            <button class="btn-primary btn-block btn-lg" data-toggle="modal" data-target="#updateModel">
+                update</button>
+            <a class="btn btn-primary btn-block btn-lg" href="{{ object.get_absolute_url }}delete">delete</a>
+        </div>
+
+    </div>
+    <div>
+
+        <br>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+</div>
+<!-- update Issue -->
+<div class="modal fade" id="updateModel" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="inquiryModalLabel">Update Issue</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'health_app:healed' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" value="{{ object.id }}">
+                    <input type="hidden" name="traineeid" value="{{ object.trainee.id }}">
+                    <div class="form-group">
+                        <select name="healed" class="form-control">
+                            <option selected="true" disabled="disabled">Healed ?</option>
+                            <option value="Yes">Yes</option>
+                        </select>
+                    </div>
+                    <hr>
+                    <input type="submit" value="Update" class="btn btn-block btn-secondary">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

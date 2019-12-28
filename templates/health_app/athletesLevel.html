@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+| Injured Athletes
+{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <div class="row">
+        <div class="col-md-3">
+            <h2>Beginner</h2>
+            {% if beginners %}
+            {% for beginner in beginners %}
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><a href="{% url 'trainee' beginner.id %}">{{ beginner.name }}</a></li>
+            </ul>
+            {% endfor %}
+            {%else%}
+            <p>No Beginners Trainees</p>
+            {%endif%}
+        </div>
+        <div class="col-md-3">
+            <h2>intermediates</h2>
+            {% if intermediates %}
+            {% for intermediate in intermediates %}
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><a href="{% url 'trainee' intermediate.id %}">{{ intermediate.name }}</a>
+                </li>
+            </ul>
+            {% endfor %}
+            {%else%}
+            <p>No intermediates Trainees</p>
+            {%endif%}
+        </div>
+        <div class="col-md-3">
+            <h2> advanceds</h2>
+            {% if advanceds %}
+            {% for advanced in advanceds %}
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><a href="{% url 'trainee' advanced.id %}">{{ advanced.name }}</a></li>
+            </ul>
+            {% endfor %}
+            {%else%}
+            <p>No Advanceds Trainees</p>
+            {%endif%}
+        </div>
+        <div class="col-md-3">
+            <h2> elites</h2>
+            {% if elites %}
+            {% for elite in elites %}
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><a href="{% url 'trainee' elite.id %}">{{ elite.name }}</a></li>
+            </ul>
+            {% endfor %}
+            {%else%}
+            <p>No Elites Trainees</p>
+            {%endif%}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

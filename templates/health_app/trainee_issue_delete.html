@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+| Delete Trainee Issue
+{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <div class="row">
+        <div class="col-md-8">
+            <h1> Delete {{object.trainee}} issue ( {{object.issue}} )?</h1>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <form action="./" method="POST">
+                {% csrf_token %}
+                <input class="btn btn-primary btn-block btn-lg" type="submit" value="yes">
+                <a class="btn btn-primary btn-block btn-lg" href="./../">Cancel</a>
+            </form>
+            <br>
+            <br>
+            <br>
+            <br>
+
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+</div>
+{% endblock %}

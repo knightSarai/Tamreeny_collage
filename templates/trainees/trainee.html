@@ -1,0 +1,589 @@
+{% extends 'base.html' %}
+
+{% block title %}
+| {{single_trainee.name}}
+{% endblock %}
+
+{% block content %}
+
+
+<section id="showcase-inner" class="py-5 text-white">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-12">
+                <h1 class="display-4">{{single_trainee.name}}</h1>
+                <p class="lead">
+                    <i class="fas fa-map-marker"></i> {{single_trainee.address}} </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Breadcrumb -->
+<section id="bc" class="mt-3">
+    <div class="container">
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'index' %}">Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{% url 'trainees' %}">trainees</a>
+                </li>
+                <li class="breadcrumb-item active">{{single_trainee.name}}</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+{% include 'partials/_alerts.html' %}
+<!-- Listing -->
+<section id="listing" class="py-4">
+    <div class="container">
+        <a href="{% url 'trainees' %}" class="btn btn-light mb-4">Back To Trainees Page</a>
+        <div class="row">
+            <div class="col-md-9">
+                <!-- Home Main Image -->
+                <img src="{{single_trainee.photo_main.url}}" alt="" class="img-main img-fluid mb-3">
+                <!-- Thumbnails -->
+                <div class="row mb-5 thumbs">
+                    <div class="col-md-2">
+                        <a href="{{single_trainee.photo_1.url}}" data-lightbox="home-images">
+                            <img src="{{single_trainee.photo_1.url}}" alt="" class="img-fluid">
+                        </a>
+                    </div>
+                    <div class="col-md-2">
+                        <a href="{{single_trainee.photo_2.url}}" data-lightbox="home-images">
+                            <img src="{{single_trainee.photo_2.url}}" alt="" class="img-fluid">
+                        </a>
+                    </div>
+                    <div class="col-md-2">
+                        <a href="{{single_trainee.photo_3.url}}" data-lightbox="home-images">
+                            <img src="{{single_trainee.photo_3.url}}" alt="" class="img-fluid">
+                        </a>
+                    </div>
+                    <div class="col-md-2">
+                        <a href="{{single_trainee.photo_4.url}}" data-lightbox="home-images">
+                            <img src="{{single_trainee.photo_4.url}}" alt="" class="img-fluid">
+                        </a>
+                    </div>
+                    <div class="col-md-2">
+                        <a href="{{single_trainee.photo_5.url}}" data-lightbox="home-images">
+                            <img src="{{single_trainee.photo_5.url}}" alt="" class="img-fluid">
+                        </a>
+                    </div>
+                    <div class="col-md-2">
+                        <a href="{{single_trainee.photo_6.url}}" data-lightbox="home-images">
+                            <img src="{{single_trainee.photo_6.url}}" alt="" class="img-fluid">
+                        </a>
+                    </div>
+                </div>
+                <!-- Fields -->
+                <br>
+                <h3 style="color: #10284e;">Details :</h3>
+                <div class="row">
+                    <div class="col-md-2">
+                        <hr style="margin-top: 0">
+                    </div>
+                </div>
+                <div class="row mb-5 fields">
+                    <div class="col-md-6 text-primary">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                level :
+                                <span class="float-right">{{single_trainee.level}}</span>
+                            </li>
+                            <li class="list-group-item ">
+                                shape :
+                                <span class="float-right">{% if single_trainee.shape %} in Shape {% else %} out
+                                    of Shape
+                                    {% endif %}</span>
+                            </li>
+                            <li class="list-group-item ">
+                                issues:
+                                <span class="float-right">{% if single_trainee.health_issue %} Yes {% else %} No
+                                    {% endif %}</span>
+                            </li>
+                            <li class="list-group-item ">
+                                age:
+                                <span class="float-right">{{age}}
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item ">
+                                joining Date:
+                                <span class="float-right">{{single_trainee.roll_date}}</span>
+                            </li>
+                            <li class="list-group-item ">
+                                phone:
+                                <span class="float-right">{{single_trainee.phone}}</span>
+                            </li>
+                            <li class="list-group-item ">
+                                Trainer:
+                                <span class="float-right">{{single_trainee.trainer}}
+                                </span>
+                            </li>
+                            <li class="list-group-item ">
+                                future elite:
+                                <span class="float-right">{% if single_trainee.level == 'elite' %}
+                                                            already elite
+                                                            {%else%}
+                                                            {% if single_trainee.future_elite %} Yes {% else %} No
+                                                            {% endif %}
+                                                            {%endif%} 
+                                    
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <h3 style="color: #10284e;">Physique Attributes :</h3>
+                <div class="row">
+                    <div class="col-md-5">
+                        <hr style="margin-top: 0">
+                    </div>
+                </div>
+
+                <!-- Field two replacement -->
+                <div class="row mb-5 fields " style="color: #10284e;">
+
+                    {% if physiques %}
+                    <div class="col-md-6">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">exercise</th>
+                                    <th scope="col">#</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">push-ups</th>
+                                    <td>{{physiques.push_ups}} Reps</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">pull-ups</th>
+                                    <td>{{physiques.pull_ups}} Reps</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">dips</th>
+                                    <td>{{physiques.dips}} Reps</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">muscle up</th>
+                                    <td>{{physiques.muscle_up}} Reps</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">deadlifts</th>
+                                    <td>{{physiques.deadlifts}} kg </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">exercise</th>
+                                    <th scope="col">#</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">squat</th>
+                                    <td>{{physiques.squat}} kg</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">L-set</th>
+                                    <td>{{physiques.l_set}} sec</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">bench press</th>
+                                    <td>{{physiques.bench_press}} kg</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">handstand</th>
+                                    <td>{{physiques.handstand}} sec</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">run</th>
+                                    <td>2 mile/{{physiques.run}} min</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <h1> No attribute </h1>
+
+                    {% endif %}
+                </div>
+                <!-- Description -->
+                <div class="row mb-5">
+                    <div class="col-md-6">
+                        <h2 style="color: #10284e;">Trainer Notes :</h2>
+                        <hr>
+                        {{ single_trainee.note }}
+                        <br>
+                        <br>
+                        <div class="col-md-4">
+                            <button class="btn-primary btn-block btn-lg" data-toggle="modal" data-target="#notesModel">
+                                Edit</button>
+                        </div>
+                    </div>
+                    <div class="col-md-6 border-left">
+                        <h2 style="color: #10284e;">Workout Program :</h2>
+                        <hr>
+                        {{workout.content}}
+                        <br>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <button class="btn-primary btn-block btn-lg" data-toggle="modal"
+                                    data-target="#workoutModel">
+                                    Add</button>
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn-primary btn-block btn-lg" data-toggle="modal"
+                                    data-target="#editWorkoutModel">
+                                    Edit</button>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="{% if workout %}{% url 'workouts' workout.trainee.id %}{% else%} {%endif%}"
+                                    class="btn btn-lg btn-primary btn-block">Explore</a>
+                            </div>
+                            
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- <div class="row mb-5">
+                    <div class="col-md-4">
+                        <button class="btn-primary btn-block btn-lg" data-toggle="modal" data-target="#notesModel">
+                            Trainer Notes</button>
+                    </div>
+                </div> -->
+            </div>
+
+
+            <div class="col-md-3">
+                <div class="card mb-3">
+                    <img class="card-img-top" src="{{single_trainee.trainer.photo.url}}" alt="Photo Not Availble">
+                    <div class="card-body">
+                        <h5 class="card-title">Client Trainer</h5>
+                        <h6 class="text-secondary">{{single_trainee.trainer.name}}</h6>
+                    </div>
+                </div>
+                <button class="btn-primary btn-block btn-lg" data-toggle="modal" data-target="#physiqueModal">Update
+                    Attributes</button>
+                <button class="btn-primary btn-block btn-lg" data-toggle="modal" data-target="#notesModel">
+                    Trainer Notes</button>
+                <button class="btn-primary btn-block btn-lg" data-toggle="modal" data-target="#issueModel">
+                    Add issue</button>
+                <button class="btn-primary btn-block btn-lg" data-toggle="modal" data-target="#activeModel">
+                    activity</button>
+                <a href="{% url 'predict' single_trainee.id %}" class="btn btn-lg btn-primary btn-block">make prediction</a>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- health -->
+<!-- trainees -->
+<section id="listings" class="py-4">
+    <h2 class="text-center" style="color: #10284e;">Health Reports</h2>
+    <div class="row">
+        <div class="col-md-12">
+            <hr style="margin-left:10rem;margin-right:10rem">
+        </div>
+    </div>
+    <div class="container" style="color: #10284e;">
+        <div class="row">
+            {% if issues %}
+            {% for one_issue in issues %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card trainee-preview">
+                    <div class="card-body">
+                        <div class="listing-heading text-center">
+                            <h4>{{one_issue.issue}}</h4>
+                            <p class="text-secondary">
+                                {% if solutions %}
+                                {% for one_solution in solutions %}
+
+                                {% if one_solution.issue.id == one_issue.issue.id %}
+                                {{one_solution.solution}}
+                        </div>
+                        <hr>
+                        <div class="row py-2" style="color: #10284e;">
+                            <div class="col-12">
+                                {{one_solution.solution.description}}
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                        </p>
+                        <div class="card-footer text-muted text-justify">
+                            <div class="col-12">
+                                {{one_issue.issue_date}}
+                            </div>
+                        </div>
+                    </div>
+                    <a class="btn btn-primary btn-block btn-lg" href="{{ one_issue.get_absolute_url }}">Update</a>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <p>No Health Issue</p>
+            {% endif %}
+        </div>
+
+    </div>
+</section>
+<!-- physique Update -->
+<div class="modal fade" id="physiqueModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="inquiryModalLabel">Update
+                    Attributes</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'physical_attribute' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="trainee_id" value="{{ single_trainee.id }}">
+                    <div class="form-group">
+                        <label for="trainee" class="col-form-label">Trainee:</label>
+                        <input type="text" name="trainee" class="form-control" value="{{single_trainee.name}}" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="pushups" class="col-form-label">pushups:</label>
+                        <input type="number" name="push_ups" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pullups" class="col-form-label">pullups:</label>
+                        <input type="number" name="pull_ups" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dips" class="col-form-label">dips:</label>
+                        <input type="number" name="dips" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="handstand" class="col-form-label">handstand:</label>
+                        <input type="number" name="handstand" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="muscle_up" class="col-form-label">muscle up:</label>
+                        <input type="number" name="muscle_up" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="deadlifts" class="col-form-label">deadlifts:</label>
+                        <input type="number" name="deadlifts" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="squat" class="col-form-label">squat:</label>
+                        <input type="number" name="squat" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="bench_press" class="col-form-label">bench press:</label>
+                        <input type="number" name="bench_press" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="run" class="col-form-label">run:</label>
+                        <input type="number" name="run" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="l_set" class="col-form-label">L_set:</label>
+                        <input type="number" name="l_set" class="form-control">
+                    </div>
+                    <hr>
+                    <input type="submit" value="submit" class="btn btn-block btn-secondary">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- trainer notes -->
+<div class="modal fade" id="notesModel" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="inquiryModalLabel">Trainer notes</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'note' %}" method="POST">
+                    {% csrf_token %}
+                    {% if user.is_authenticated %}
+                    <input type="hidden" name="user_email" value="{{ user.email }}">
+                    {% else %}
+                    <input type="hidden" name="user_email" value="None">
+                    {% endif %}
+                    <input type="hidden" name="trainee_id" value="{{ single_trainee.id }}">
+                    <div class="form-group">
+                        <label for="trainee" class="col-form-label">Trainee:</label>
+                        <input type="text" name="trainee" class="form-control" value="{{single_trainee.name}}" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="notes" class="col-form-label">notes:</label>
+                        <textarea name="notes" class="form-control">{{single_trainee.note}}</textarea>
+                    </div>
+                    <hr>
+                    <input type="submit" value="submit" class="btn btn-block btn-secondary">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- trainee Issue -->
+<div class="modal fade" id="issueModel" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="inquiryModalLabel">Trainer notes</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'addTraineeIssue' %}" method="POST">
+                    {% csrf_token %}
+                    {% if user.is_authenticated %}
+                    <input type="hidden" name="user_email" value="{{ user.email }}">
+                    {% else %}
+                    <input type="hidden" name="user_email" value="None">
+                    {% endif %}
+                    <input type="hidden" name="trainee_id" value="{{ single_trainee.id }}">
+                    <div class="form-group">
+                        <select name="issue" class="form-control">
+                            {% if issues_list %}
+                            <option selected="true" disabled="disabled">issues (ALL)</option>
+                            {% for issue in  issues_list%}
+                            <option value="{{issue.id}}">{{issue.code}}</option>
+                            {% endfor %}
+                            {% else %}
+                            <option selected="true" disabled="disabled">No Issues</option>
+                            {% endif %}
+                        </select>
+
+                    </div>
+
+                    <hr>
+                    <input type="submit" value="submit" class="btn btn-block btn-secondary">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- add workout -->
+<div class="modal fade" id="workoutModel" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="inquiryModalLabel">Add New Workout Program</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'addWorkout' %}" method="POST">
+                    {% csrf_token %}
+                    {% if user.is_authenticated %}
+                    <input type="hidden" name="user_email" value="{{ user.email }}">
+                    {% else %}
+                    <input type="hidden" name="user_email" value="None">
+                    {% endif %}
+                    <input type="hidden" name="trainee_id" value="{{ single_trainee.id }}">
+
+                    <div class="form-group">
+                        <label for="content" class="col-form-label">Workout:</label>
+                        <textarea name="content" class="form-control"></textarea>
+                    </div>
+                    <hr>
+                    <input type="submit" value="submit" class="btn btn-block btn-secondary">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- edit workout -->
+<div class="modal fade" id="editWorkoutModel" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="inquiryModalLabel">Edit Workout Program</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% if workout %}{% url 'editWorkout' %}{% else%} {%endif%}" method="POST">
+                    {% csrf_token %}
+                    {% if user.is_authenticated %}
+                    <input type="hidden" name="user_email" value="{{ user.email }}">
+                    {% else %}
+                    <input type="hidden" name="user_email" value="None">
+                    {% endif %}
+                    <input type="hidden" name="workout_id" value="{{ workout.id }}">
+                    <input type="hidden" name="trainee_id" value="{{ single_trainee.id }}">
+
+                    <div class="form-group">
+                        <label for="content" class="col-form-label">notes:</label>
+                        <textarea name="content" class="form-control">{{workout.content}}</textarea>
+                    </div>
+                    <hr>
+                    <input type="submit" value="submit" class="btn btn-block btn-secondary">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- trainee activity -->
+<div class="modal fade" id="activeModel" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                    <h5 class="modal-title" id="inquiryModalLabel">active ?</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{% url 'active' %}" method="POST">
+                        {% csrf_token %}
+                        {% if user.is_authenticated %}
+                        <input type="hidden" name="user_email" value="{{ user.email }}">
+                        {% else %}
+                        <input type="hidden" name="user_email" value="None">
+                        {% endif %}
+                        <input type="hidden" name="trainee_id" value="{{ single_trainee.id }}">
+                        <div class="form-group">
+                            <select name="active" class="form-control">
+                                
+                                <option selected="true" disabled="disabled">Active?</option>
+                                
+                                <option value="True">Yes</option>
+        
+                                <option value="False">No</option>
+                                
+                            </select>
+    
+                        </div>
+                        <hr>
+                        <input type="submit" value="submit" class="btn btn-block btn-secondary">
+                    </form>
+                </div>
+            </div>
+     </div>
+</div>
+{% endblock %}

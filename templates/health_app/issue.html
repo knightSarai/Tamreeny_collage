@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+| Issue Details
+{% endblock %}
+
+{% block content %}
+{% include 'partials/_alerts.html' %}
+<div class="container my-4">
+    <div class="row">
+        <div class="col-md-8">
+            <h1>{{single_issue.code}}</h1>
+            <hr>
+            <h5>{{single_issue.description}}</h5>
+        </div>
+        <div class="col-md-4">
+
+            <br>
+            <br>
+            <br>
+            <br>
+            <button class="btn-primary btn-block btn-lg" data-toggle="modal" data-target="#updateModel">
+                update</button>
+            <a class="btn btn-primary btn-block btn-lg" href="{{ object.get_absolute_url }}delete">delete</a>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-8">
+            <h1>Solutions :</h1>
+            <hr>
+            <br>
+            {% if solutions %}
+            {% for solution in solutions %}
+            <div class="row">
+                <div class="col-md-8">
+                    <h3>{{solution.solution.code}}:</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <hr style="margin-top: 0">
+                            <br>
+
+                        </div>
+                    </div>
+                    <h5>{{solution.solution.description}}</h5>
+                    <br>
+                </div>
+            </div>
+            {% endfor %}
+            {%else%}
+            <h4>No Solutions</h4>
+            {% endif %}
+
+        </div>
+    </div>
+    <div>
+
+        <br>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><a class="font-weight-bold" href=""></a></li>
+
+            </ul>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+</div>
+<!-- update Issue -->
+<div class="modal fade" id="updateModel" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="inquiryModalLabel">Update Issue</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'health_app:update' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="issue_id" value="{{ single_issue.id }}">
+                    <div class="form-group">
+                        <label for="description" class="col-form-label">description:</label>
+                        <textarea name="description" class="form-control">{{single_issue.description}}</textarea>
+                    </div>
+                    <hr>
+                    <input type="submit" value="Add Issue" class="btn btn-block btn-secondary">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

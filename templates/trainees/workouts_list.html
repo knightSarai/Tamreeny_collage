@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+| Trainee Workouts
+{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <h1>Trainees Workouts Programs:</h1>
+    {% if workouts %}
+    <div class="row">
+        <div class="col-md-6">
+            <hr style="margin-top: 0">
+            <br>
+            <br>
+        </div>
+    </div>
+    {% for workout in workouts %}
+    <div class="row">
+        <div class="col-md-8">
+            <h3 style="color: #10284e;">{{workout.date}}:</h3>
+        </div>
+
+    </div>
+    <div class="row ">
+        <div class="col-md-6 border">
+            <h5 style="color: #10284e;">{{workout.content}}</h5>
+        </div>
+
+    </div>
+    <br>
+    <br>
+    {% endfor %}
+    {% else %}
+    <div class="jumbotron py-2 my-5 mx-auto">
+        <h1>No Workouts</h1>
+    </div>
+    {% endif %}
+
+
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+</div>
+{% endblock %}

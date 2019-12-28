@@ -1,0 +1,200 @@
+{% extends 'base.html' %}
+
+{% block title %}
+| welcome
+{% endblock %}
+
+{% block content %}
+<section id="showcase">
+    <div class="container text-center">
+        <div class="home-search p-5">
+            <div class="overlay p-5">
+                <h1 class="display-4 mb-4">
+                    All Champions Gym
+                </h1>
+                <p class="lead">The Future Of Boxing Is Here, Greatest Of All Time Champions Trained Here</p>
+                <hr>
+                <h3 class="display-4 mb-4">Search For Trainee</h3>
+                <div class="search">
+                    <form action="{% url 'search' %}">
+                        <!-- Form Row 1 -->
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label class="sr-only">Keywords</label>
+                                <input type="text" name="keywords" class="form-control"
+                                    placeholder="Keyword (name, level , etc)">
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label class="sr-only">trainer</label>
+                                <input type="text" name="trainer" class="form-control" placeholder="trainer">
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label class="sr-only">level</label>
+                                <select name="level" class="form-control">
+                                    <option selected="true" disabled="disabled">levels (ALL)</option>
+                                    <option value="beginner">beginner</option>
+                                    <option value="intermediate">intermediate</option>
+                                    <option value="advanced">advanced</option>
+                                    <option value="elite">elite</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Form Row 2 -->
+                        <div class="form-row">
+                            <div class="col-md-4 mb-2">
+                                <label class="sr-only">Health issues</label>
+                                <select name="health" class="form-control">
+                                    <option selected="true" disabled="disabled">Health issues</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <label class="sr-only">in shape ?</label>
+                                <select name="shape" class="form-control">
+                                    <option selected="true" disabled="disabled">in shape ?</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <select name="elite" class="form-control" id="type">
+                                    <option selected="true" disabled="disabled">futuer elite ?</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary btn-block mt-4" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Alerts -->
+{% include 'partials/_alerts.html' %}
+<br>
+<br>
+
+<div class="container text-primary">
+    <div class=" row">
+        <div class="col-md-3 col-lg-3 mb-4">
+            <div class="card mb-3" style="max-width: 18rem; border-color: #10284e;">
+                <div class="card-header font-weight-bold">Athletes level</div>
+                <div class="card-body  ">
+                    <h5 class="card-title text-primary">{% if b_trainees%} {{b_trainees}} {%else%} 0 {%endif%} beginners
+                    </h5>
+                    <h5 class="card-title text-primary">{% if i_trainees%} {{i_trainees}} {%else%} 0 {%endif%}
+                        intermediates</h5>
+                    <h5 class="card-title text-primary">{% if a_trainees%} {{a_trainees}} {%else%} 0 {%endif%} advanceds
+                    </h5>
+                    <h5 class="card-title text-primary">{% if e_trainees%} {{e_trainees}} {%else%} 0 {%endif%} elite
+                    </h5>
+                    <hr>
+                    <h5 class="card-title text-primary">Total Athletes in Gym: {% if all_trainees_count%}
+                        {{all_trainees_count}} {%else%} 0 {%endif%}
+                    </h5>
+                    </h5>
+                    <hr>
+                    <div class="text-center">
+                        <a href="{% url 'health_app:level' %}" class="btn btn-primary text-center">explore</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card mb-3" style="max-width: 18rem; border-color: #10284e;"">
+                <div class=" card-header font-weight-bold">Injured Athletes</div>
+            <div class="card-body text-danger">
+                <h5 class="card-title text-center">{% if Injured_trainee %} {{Injured_trainee}} {% else %} 0 {% endif %}
+                    Trainees out of
+                    {{all_trainees_count}} Total</h5>
+                <br>
+                <hr>
+                <div class="text-center">
+                    <a href="{% url 'health_app:injured' %}" class="btn btn-primary text-center">explore</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card mb-3" style="max-width: 18rem; border-color: #10284e;">
+            <div class="card-header font-weight-bold">Athletes In Shape</div>
+            <div class="card-body text-info">
+                <h5 class="card-title">{% if shape_trainees %} {{shape_trainees}} {% else %} 0 {% endif %}
+                    Trainees out of {{all_trainees_count}} Total</h5>
+                <br>
+                <hr>
+                <div class="text-center">
+                    <a href="{% url 'health_app:shape' %}" class="btn btn-primary text-center">explore</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card mb-3" style="max-width: 18rem; border-color: #10284e;">
+            <div class="card-header font-weight-bold">Future Elite</div>
+            <div class="card-body text-dark">
+                <h5 class="card-title">{% if elite_trainees %} {{elite_trainees}} {% else %} 0 {% endif %}
+                    Trainees out of {{all_trainees_count}} Total</h5>
+                <br>
+                <hr>
+                <div class="text-center">
+                    <a href="{% url 'health_app:elite' %}" class="btn btn-primary text-center">explore</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<hr>
+</div>
+
+<!-- trainees -->
+<section id="listings" class="py-5">
+    <div class="container text-primary">
+        <h3 class="text-center mb-3">Latest Trainees</h3>
+        <div class="row">
+            <!-- trainee 1 -->
+            {% if latest_trainee %}
+            {% for trainee in latest_trainee %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card trainee-preview">
+                    <img class="card-img-top" src="{{trainee.photo_main.url}}" alt="">
+                    <div class="card-body">
+                        <div class="listing-heading text-center">
+                            <h4 class="text-primary">{{trainee.name}}</h4>
+                            <p>
+                                <i class="fas fa-map-marker text-secondary"></i> {{trainee.address}}</p>
+                        </div>
+                        <hr>
+                        <div class="row py-2">
+                            <div class="col-md-8">
+                                <i class="fas fa-user text-secondary"></i> {{trainee.trainer}}</div>
+                        </div>
+                        <hr>
+                        <a href="{% url 'trainee' trainee.id %}" class="btn btn-primary btn-block">profile</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <p>No Trainees</p>
+            {% endif %}
+
+
+        </div>
+        <hr>
+    </div>
+</section>
+
+<section id="services" class="py-5 bg-secondary text-white">
+    <div class="container">
+
+    </div>
+</section>
+{% endblock %}
